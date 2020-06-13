@@ -29,16 +29,19 @@
     <script type="text/javascript"
         src="http://maps.google.com/maps/api/js?key=AIzaSyC_SLQlmYALzeBhFmQRgrGvqAtOelLvKv0"></script>
 
+    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+
+    <script> $(function () { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
+
     <script>
         let address_burger = "";
 
         function result() {
             let DO = $('#input_DO').val();
-            let SI = $('#input_SI').val();
-            let GU = $('#input_GU').val();
+
             let name_burger = $('#input_burger').val();
 
-            let address_burger = `${DO} ${SI} ${GU} ${name_burger}`
+            let address_burger = `${DO} ${name_burger}`
 
             console.log(address_burger);
 
@@ -46,18 +49,13 @@
 
             searchPlaces();
 
-            alert('검색 완료!');
+            alert('지도 그리기 완료!');
         }
 
         function visualizing_map() {
-            if ($('.map_wrap').css('display') === 'none') {
-                $('.map_wrap').show();
-                $('#map_button').text('지도 닫기');
-            } else {
-                $('.map_wrap').hide();
-                $('#map_button').text('지도 열기');
+
             }
-        }
+        
     </script>
 
 
@@ -259,7 +257,7 @@
         </div>
     </div>
 
-    <div class="input-group mb-3">
+    <!-- <div class="input-group mb-3">
         <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">도</label>
         </div>
@@ -284,11 +282,19 @@
         <select class="custom-select" id="input_GU">
             <option selected value="강남구">강남구</option>
         </select>
-    </div>
+    </div> -->
+
+    <!-- <input type="text" name="" class="postcodify_postcode5" value="" /> -->
+    <button id="postcodify_search_button">주소 검색</button>
+    <span>
+        <input type="text" name="" id="input_DO" class="postcodify_address" value="" /><br />
+    </span>
+    <!-- <input type="text" name="" class="postcodify_details" value="" /><br /> -->
+    <!-- <input type="text" name="" class="postcodify_extra_info" value="" /><br /> -->
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">버거집</label>
+            <label class="input-group-text" for="inputGroupSelect01">어떤 패스트푸드?</label>
         </div>
         <select class="custom-select" id="input_burger">
             <option selected value="버거킹">버거킹</option>
@@ -306,7 +312,7 @@
     </div>
 
     <div>
-        <button onclick="visualizing_map()" type="button" class="btn btn-primary btn-lg" id="map_button">지도 닫기</button>
+        <button onclick="visualizing_map()" type="button" class="btn btn-primary btn-lg" id="map_button">지도 보기</button>
     </div>
 
     <div class="map_wrap">
