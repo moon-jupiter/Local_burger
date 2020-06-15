@@ -37,27 +37,20 @@
         let address_burger = "";
 
         function result() {
-            let DO = $('#input_DO').val();
-
+            let address_client = $('#input_address').val();
             let name_burger = $('#input_burger').val();
-
-            let address_burger = `${DO} ${name_burger}`
-
+            let address_burger = `${address_client} ${name_burger}`
             console.log(address_burger);
-
             $('#keyword').val(address_burger);
-
             searchPlaces();
-
             alert('지도 그리기 완료!');
         }
 
         function visualizing_map() {
 
             }
-        
-    </script>
 
+    </script>
 
     <style>
         .map_wrap,
@@ -256,41 +249,11 @@
             <p class="lead">동네 패스트푸드 지점수를 확인해보세요.</p>
         </div>
     </div>
-
-    <!-- <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">도</label>
-        </div>
-        <select class="custom-select" id="input_DO">
-            <option selected value="서울특별시">서울특별시</option>
-        </select>
-    </div>
-
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">시</label>
-        </div>
-        <select class="custom-select" id="input_SI">
-            <option selected value="">---</option>
-        </select>
-    </div>
-
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">구</label>
-        </div>
-        <select class="custom-select" id="input_GU">
-            <option selected value="강남구">강남구</option>
-        </select>
-    </div> -->
-
-    <!-- <input type="text" name="" class="postcodify_postcode5" value="" /> -->
+    
     <button id="postcodify_search_button">주소 검색</button>
     <span>
-        <input type="text" name="" id="input_DO" class="postcodify_address" value="" /><br />
+        <input type="text" name="" id="input_address" class="postcodify_address" value="" /><br />
     </span>
-    <!-- <input type="text" name="" class="postcodify_details" value="" /><br /> -->
-    <!-- <input type="text" name="" class="postcodify_extra_info" value="" /><br /> -->
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">
