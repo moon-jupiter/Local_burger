@@ -37,18 +37,37 @@
         let address_burger = "";
 
         function result() {
+            //지도 그리기
             let address_client = $('#input_address').val();
             let name_burger = $('#input_burger').val();
             let address_burger = `${address_client} ${name_burger}`
-            console.log(address_burger);
+            //console.log(address_burger);
             $('#keyword').val(address_burger);
             searchPlaces();
-            alert('지도 그리기 완료!');
+            //alert('지도 그리기 완료!');
+
+            seach_address(address_client);
+        }
+
+        function seach_address(address_client) {
+            $.ajax({
+                type: 'POST',
+                url: '/number',
+                data: { 'address_give': address_client },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        console.log('POST success!');
+                        let number_burgerking = response['number'];
+                        alert(number_burgerking);
+                       // window.location.reload();
+                    }
+                }
+            });
         }
 
         function visualizing_map() {
 
-            }
+        }
 
     </script>
 
@@ -249,7 +268,7 @@
             <p class="lead">동네 패스트푸드 지점수를 확인해보세요.</p>
         </div>
     </div>
-    
+
     <button id="postcodify_search_button">주소 검색</button>
     <span>
         <input type="text" name="" id="input_address" class="postcodify_address" value="" /><br />

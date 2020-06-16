@@ -22,5 +22,5 @@ def import_content(filepath):
     db_cm.insert(data_json)
 
 if __name__ == "__main__":
-  filepath = './local_burger raw data_csv.csv'  #pass csv file path
+  filepath = './local_burger raw data.csv'  #pass csv file path
   import_content(filepath)
