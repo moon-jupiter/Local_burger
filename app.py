@@ -22,7 +22,7 @@ def search_number():
     address2 = split_address[2]
 
     search_address = db.localburger.find({'$and':[{'address0': address0}, {'address1': address1}]})
-    if search_address[1] == False: #바로 위 find()로 찾은 값의 개수가 1개가 아니라는 걸 표현하고 싶은데 어떻게 하면 좋을까요?
+    if len(search_address) == 1: #바로 위 find()로 찾은 값의 개수가 1개라는 걸 표현하고 싶은데 어떻게 하면 좋을까요?
         search_burgerking = search_address['king']
     else:
         search_burgerking_temp = db.localburger.find_one({'address2': address2})
