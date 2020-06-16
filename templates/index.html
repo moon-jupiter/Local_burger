@@ -55,8 +55,7 @@
                 url: '/number',
                 data: { 'address_give': address_client },
                 success: function (response) {
-                    if (response['result'] == 'success') {
-                        console.log('POST success!');
+                    if (response['result'] === 'success') {
                         let number_burgerking = response['number'];
                         alert(number_burgerking);
                        // window.location.reload();
