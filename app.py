@@ -29,9 +29,9 @@ def search_number():
     #     search_burgerking = search_burgerking_temp['king']
     search_result = list(search_address)
     search_burgerking = search_result[0].get('king', None)
-    print(search_burgerking)
+    search_percent = search_result[0].get('percent', None)
     return jsonify({
-        'result': 'success','number': search_burgerking
+        'result': 'success','number': search_burgerking, 'percent': search_percent
         })
 
 if __name__ == '__main__':

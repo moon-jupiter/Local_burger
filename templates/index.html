@@ -57,11 +57,18 @@
                 success: function (response) {
                     if (response['result'] === 'success') {
                         let number_burgerking = response['number'];
-                        alert(number_burgerking);
-                       // window.location.reload();
+                        let rate_burgerking = response['percent'];
+                        rewrite_number(number_burgerking, rate_burgerking);             
                     }
                 }
             });
+        }
+
+        function rewrite_number(number, rate) {
+            let name_burger = $('#input_burger').val();
+            let text_temp = `검색한 지역의 ${name_burger} 개수는 ${number}개로 상위 ${rate}입니다.`;
+            $('#result').text(text_temp);
+
         }
 
         function visualizing_map() {
@@ -264,7 +271,7 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4">너네 동네 버거킹 있어?</h1>
-            <p class="lead">동네 패스트푸드 지점수를 확인해보세요.</p>
+            <p class="lead">동네 버거킹 지점수를 확인해보세요.</p>
         </div>
     </div>
 
@@ -279,9 +286,9 @@
         </div>
         <select class="custom-select" id="input_burger">
             <option selected value="버거킹">버거킹</option>
-            <option value="맘스터치">맘스터치</option>
+            <!-- <option value="맘스터치">맘스터치</option>
             <option value="맥도날드">맥도날드</option>
-            <option value="롯데리아">롯데리아</option>
+            <option value="롯데리아">롯데리아</option> -->
         </select>
     </div>
 
@@ -289,11 +296,11 @@
         <button onclick="result()" type="button" class="btn btn-primary btn-lg">확인</button>
     </div>
 
-    <div id="result"> <a>검색한 지역의 000 개수는 00개로 상위 00%입니다.</a>
+    <div id="result"> <a>과연 결과는...!</a>
     </div>
 
     <div>
-        <button onclick="visualizing_map()" type="button" class="btn btn-primary btn-lg" id="map_button">지도 보기</button>
+        <button onclick="visualizing_map()" type="button" class="btn btn-primary btn-lg" id="map_button">내집 주변 버거킹 보기</button>
     </div>
 
     <div class="map_wrap">
