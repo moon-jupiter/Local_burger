@@ -52,6 +52,10 @@
             seach_address(address_client);
         }
 
+        function reset() {
+            window.location.reload();
+        }
+
         function seach_address(address_client) {
             $.ajax({
                 type: 'POST',
@@ -521,6 +525,10 @@
 
     <div>
         <button onclick="result()" type="button" class="btn btn-primary btn-lg">확인</button>
+    </div>
+
+    <div>
+        <button onclick="reset()" type="button" class="btn btn-primary btn-lg">리셋</button>
     </div>
 
     <div id="result"> <a>과연 결과는...!</a>
