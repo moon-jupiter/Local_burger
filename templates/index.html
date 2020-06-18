@@ -36,6 +36,8 @@
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f75642142f1d13ee5e8f6bc51f8d9b26&libraries=services"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
     <script>
         let address_burger = "";
 
@@ -50,6 +52,52 @@
             //alert('지도 그리기 완료!');
 
             seach_address(address_client);
+        
+            // 우선 컨텍스트를 가져옵니다. 
+            var ctx = document.getElementById("myChart").getContext('2d');
+            /*
+            - Chart를 생성하면서, 
+            - ctx를 첫번째 argument로 넘겨주고, 
+            - 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다. 
+            */
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["전국", "우리 동네"],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [100, percent_graph],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            // 'rgba(255, 206, 86, 0.2)', //Yellow
+                            // 'rgba(75, 192, 192, 0.2)', //Green
+                            // 'rgba(153, 102, 255, 0.2)', //Purple
+                            // 'rgba(255, 159, 64, 0.2)' //Orange
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            // 'rgba(255, 206, 86, 1)', //Yellow
+                            // 'rgba(75, 192, 192, 1)', //Green
+                            // 'rgba(153, 102, 255, 1)', //Purple
+                            // 'rgba(255, 159, 64, 1)' //Orange
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
         }
 
         function reset() {
@@ -66,6 +114,7 @@
                         let number_burgerking = response['number'];
                         let rate_burgerking = response['percent'];
                         rewrite_number(number_burgerking, rate_burgerking);
+                        rewrite_graph(rate_burgerking);
                     }
                 }
             });
@@ -75,7 +124,10 @@
             let name_burger = $('#input_burger').val();
             let text_temp = `검색한 지역의 ${name_burger} 개수는 ${number}개로 상위 ${rate}입니다.`;
             $('#result').text(text_temp);
-
+        }
+        function rewrite_graph(percent) {
+            var percent_graph = percent.split('%')[0];
+            console.log(percent_graph);
         }
 
         function visualizing_map() {
@@ -524,7 +576,12 @@
     </div>
 
     <div>
-        <button onclick="result()" type="button" class="btn btn-primary btn-lg">확인</button>
+        <button onclick="result()" type="button" class="btn btn-primary btn-lg">검색</button>
+    </div>
+
+    <div>
+        <button onclick="visualizing_map()" type="button" class="btn btn-primary btn-lg" id="map_button">내집 주변 버거킹
+            보기</button>
     </div>
 
     <div>
@@ -534,10 +591,13 @@
     <div id="result"> <a>과연 결과는...!</a>
     </div>
 
-    <div>
-        <button onclick="visualizing_map()" type="button" class="btn btn-primary btn-lg" id="map_button">내집 주변 버거킹
-            보기</button>
+    <div style="width:800px">
+        <canvas id="myChart"></canvas>
     </div>
+
+
+
+
 
     <div class="map_wrap" id="map_all" style="display:none">
         <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
