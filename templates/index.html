@@ -38,94 +38,121 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
-    <script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        var dataset = {};
+        // var dataset = new Array();
+        $(document).ready(function () {
+            // index.html 로드가 완료되면 자동으로 show_star() 함수를 호출합니다.
+            listing();
+        });
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/number",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        const localburger = response['data'] || [];
+                        //dataset.length = 0;
+
+                        for (i = 0; i < localburger.length; i++) {
+                            let people_receive = localburger[i]['people'];
+                            let king_receive = localburger[i]['king'];
+                            let number_receive = localburger[i]['number'];
+
+                            dataset[number_receive] = [people_receive, king_receive, 'null',''];
+                        }
+                        console.log('*********************');
+                        console.log(dataset);
+                        console.log('*********************');
+
+                        google.charts.load('current', { 'packages': ['corechart'] });
+                        google.charts.setOnLoadCallback(drawChart);
+                    } else {
+                        alert('data를 받아오지 못했습니다');
+                    }
+                }
+            })
+        }
+
+        function drawChart() {
+            // console.log(typeof(dataset))
+            console.log('&&&&&&&&&&&&&')
+            const dataset_list = [];
+            dataset_list.push(['인구수', '지점수', { 'type': 'string', 'role': 'style' }, {role: 'annotation'}]);
+            for ( const key in dataset) {
+                dataset_list.push(dataset[key]);
+            }
+
+            var data = google.visualization.arrayToDataTable(dataset_list);
+
+            var options = {
+                title: '지역 인구수 별 버거킹 지점수',
+                hAxis: { title: '인구수', minValue: 0, maxValue: 900000 },
+                vAxis: { title: '지점수', minValue: 0, maxValue: 15 },
+                annotations: { stemColor: 'white', textStyle: { fontSize: 20 } },
+                legend: 'none',
+            };
+
+            var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
         let address_burger = "";
 
         function result() {
             //지도 그리기
+
             let address_client = $('#input_address').val();
             let name_burger = $('#input_burger').val();
             let address_burger = `${address_client} ${name_burger}`
             //console.log(address_burger);
-            $('#keyword').val(address_burger);
-            searchPlaces();
-            //alert('지도 그리기 완료!');
-            seach_address(address_client);
-        }
-
-        function onDraw(percent_graph) {
-            // 우선 컨텍스트를 가져옵니다. 
-            var ctx = document.getElementById("myChart").getContext('2d');
-            /*
-            - Chart를 생성하면서, 
-            - ctx를 첫번째 argument로 넘겨주고, 
-            - 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다. 
-            */
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ["전국", "우리 동네"],
-                    datasets: [{
-                        label: '# of Votes',
-                        data: [100, percent_graph],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            // 'rgba(255, 206, 86, 0.2)', //Yellow
-                            // 'rgba(75, 192, 192, 0.2)', //Green
-                            // 'rgba(153, 102, 255, 0.2)', //Purple
-                            // 'rgba(255, 159, 64, 0.2)' //Orange
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            // 'rgba(255, 206, 86, 1)', //Yellow
-                            // 'rgba(75, 192, 192, 1)', //Green
-                            // 'rgba(153, 102, 255, 1)', //Purple
-                            // 'rgba(255, 159, 64, 1)' //Orange
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }
-            });
+            if (address_client === '') {
+                alert('주소를 입력하세요!');
+            } else {
+                $('#keyword').val(address_burger);
+                searchPlaces();
+                //alert('지도 그리기 완료!');
+                search_address(address_client);
+                $('#map_button').show();
+            }
         }
 
         function reset() {
             window.location.reload();
         }
 
-        function seach_address(address_client) {
+        function search_address(address_client) {
             $.ajax({
                 type: 'POST',
                 url: '/number',
                 data: { 'address_give': address_client },
                 success: function (response) {
                     if (response['result'] === 'success') {
+                        let burgerking_local = response['king'];
+                        let rank_local = response['rank'];
                         let number_burgerking = response['number'];
-                        let rate_burgerking = response['percent'];
-                        rewrite_number(number_burgerking, rate_burgerking);
+                        let people_local = response['people'];
+                        let result_address = response['address'];
 
-                        let percent_graph = rate_burgerking.split('%')[0];
+                        rewrite_number(burgerking_local, rank_local);
+                        console.log(burgerking_local)
+                        console.log(number_burgerking);
 
-                        onDraw(percent_graph);
+                        dataset[number_burgerking] = [people_local, burgerking_local, 'point { size: 18; shape-type: star; fill-color: #a52714;}', result_address];
+
+                        google.charts.load('current', { 'packages': ['corechart'] });
+                        google.charts.setOnLoadCallback(drawChart);
                     }
                 }
             });
         }
 
-        function rewrite_number(number, rate) {
+        function rewrite_number(number, rank) {
             let name_burger = $('#input_burger').val();
-            let text_temp = `검색한 지역의 ${name_burger} 개수는 ${number}개로 상위 ${rate}입니다.`;
+            let text_temp = `검색한 지역의 ${name_burger} 개수는 ${number}개로 ${rank}/250등입니다.`;
             $('#result').text(text_temp);
         }
 
@@ -353,8 +380,6 @@
                         el.removeChild(el.lastChild);
                     }
                 }
-
-
             }
         }
     </script>
@@ -562,39 +587,23 @@
         <input type="text" name="" id="input_address" class="postcodify_address" value="" /><br />
     </span>
 
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">어떤 패스트푸드?</label>
-        </div>
-        <select class="custom-select" id="input_burger">
+    <div class="input-group">
+        <select class="custom-select" id="input_burger" aria-label="Example select with button addon">
             <option selected value="버거킹">버거킹</option>
-            <!-- <option value="맘스터치">맘스터치</option>
-            <option value="맥도날드">맥도날드</option>
-            <option value="롯데리아">롯데리아</option> -->
         </select>
+        <div class="input-group-append">
+            <button onclick="result()" class="btn btn-outline-secondary" type="button">검색</button>
+        </div>
     </div>
 
     <span>
-        <button onclick="result()" type="button" class="btn btn-primary btn-lg">검색</button>
+        <button style='display:none' onclick="reset()" type="button" class="btn btn-primary btn-lg">리셋</button>
     </span>
-
-
-    <span>
-        <button onclick="reset()" type="button" class="btn btn-primary btn-lg">리셋</button>
-    </span>
-
-    <div>
-        <button onclick="visualizing_map()" type="button" class="btn btn-primary btn-lg" id="map_button">내집 주변 버거킹
-            보기</button>
-    </div>
-
 
     <div id="result"> <a>과연 결과는...!</a>
     </div>
 
-    <div style="width:800px">
-        <canvas id="myChart"></canvas>
-    </div>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
     <div class="map_wrap" id="map_all" style="display:none">
         <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
@@ -614,7 +623,15 @@
         </div>
     </div>
 
+    <div>
+        <button onclick="visualizing_map()" type="button" class="btn btn-primary btn-lg" id="map_button"
+            style="display:none">내집 주변 버거킹
+            보기</button>
+    </div>
+    
     <script>
+
+
         // 마커를 담을 배열입니다
         var markers = [];
 

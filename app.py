@@ -9,6 +9,12 @@ db = client.dbsparta
 def home():
     return render_template('index.html')
 
+@app.route('/number', methods=['GET'])
+def draw_graph():
+    graph_indexs = list(db.localburger.find({},{'_id':0}))
+    return jsonify({'result': 'success', 'data': graph_indexs})
+
+
 #burgerking
 @app.route('/number', methods=['POST'])
 def search_number():
@@ -21,17 +27,23 @@ def search_number():
     address1 = split_address[1]
     address2 = split_address[2]
 
-    search_address = db.localburger.find({'$and':[{'address0': address0}, {'address1': address1}]})
-    # if search_address.count() == 1: 
-    #     search_burgerking = search_address['king']
-    # else:
-    #     search_burgerking_temp = db.localburger.find_one({'address2': address2})
-    #     search_burgerking = search_burgerking_temp['king']
-    search_result = list(search_address)
-    search_burgerking = search_result[0].get('king', None)
-    search_percent = search_result[0].get('percent', None)
+    search_address = list(db.localburger.find({'$and':[{'address0': address0}, {'address1': address1}]},{'_id':0}))
+    if len(search_address) == 1: 
+        search_burgerking = search_address[0]['king']
+        search_rank = search_address[0]['rank']
+        search_number = search_address[0]['number']
+        search_people = search_address[0]['people']
+        result_address = address0 + ' ' + address1
+    else:
+        search_temp = db.localburger.find_one({'address2': address2})
+        search_burgerking = search_temp['king']
+        search_rank = search_temp['rank']
+        search_number = search_temp['number']
+        search_people = search_temp['people']
+        result_address = address0 + ' ' + address1 + ' ' + address2
+
     return jsonify({
-        'result': 'success','number': search_burgerking, 'percent': search_percent
+        'result': 'success','king': search_burgerking, 'rank': search_rank, 'number': search_number, 'people': search_people, 'address': result_address
         })
 
 if __name__ == '__main__':
