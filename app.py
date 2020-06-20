@@ -7,7 +7,7 @@ db = client.dbsparta
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index_boot.html')
 
 @app.route('/number', methods=['GET'])
 def draw_graph():

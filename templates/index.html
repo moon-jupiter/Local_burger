@@ -2,6 +2,22 @@
 <html lang="en">
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Agency - Start Bootstrap Theme</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -62,7 +78,7 @@
                             let king_receive = localburger[i]['king'];
                             let number_receive = localburger[i]['number'];
 
-                            dataset[number_receive] = [people_receive, king_receive, 'null',''];
+                            dataset[number_receive] = [people_receive, king_receive, 'null', ''];
                         }
                         console.log('*********************');
                         console.log(dataset);
@@ -81,8 +97,8 @@
             // console.log(typeof(dataset))
             console.log('&&&&&&&&&&&&&')
             const dataset_list = [];
-            dataset_list.push(['인구수', '지점수', { 'type': 'string', 'role': 'style' }, {role: 'annotation'}]);
-            for ( const key in dataset) {
+            dataset_list.push(['인구수', '지점수', { 'type': 'string', 'role': 'style' }, { role: 'annotation' }]);
+            for (const key in dataset) {
                 dataset_list.push(dataset[key]);
             }
 
@@ -628,7 +644,7 @@
             style="display:none">내집 주변 버거킹
             보기</button>
     </div>
-    
+
     <script>
 
 
