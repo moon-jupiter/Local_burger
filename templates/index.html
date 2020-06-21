@@ -115,12 +115,14 @@
                 //alert('지도 그리기 완료!');
                 search_address(address_client);
                 visualizing_map();
-
             }
         }
 
         function reset() {
             window.location.reload();
+            $(document).ready(function () {
+                $(this).scrollTop(0);
+            });
         }
 
         function search_address(address_client) {
@@ -604,7 +606,7 @@
                 <h3 class="section-subheading text-muted">주소를 입력하세요. </h3>
             </div>
 
-            <button id="postcodify_search_button">주소 검색</button> 
+            <button id="postcodify_search_button">주소 검색</button>
             <!-- 주소 검색 팝업이 왜 안 뜰까? -->
             <span>
                 <input type="text" name="" id="input_address" class="postcodify_address" value="" /><br />
@@ -621,14 +623,15 @@
                     <option selected value="버거킹">버거킹</option>
                 </select>
                 <div class="input-group-append">
-                    <button onclick="result()" class="btn btn-outline-secondary" type="button" id="result_btn">검색</button>
+                    <button onclick="result()" class="btn btn-outline-secondary" type="button"
+                        id="result_btn">검색</button>
                     <!-- 검색 버튼을 누르면 result로 화면 이동 -->
                 </div>
                 <script>
-                    $(document).ready(function(){
-                        $('#result_btn').click(function(){
+                    $(document).ready(function () {
+                        $('#result_btn').click(function () {
                             var offset = $('#result_index').offset();
-                            $('html').animate({scrollTop : offset.top},500);
+                            $('html').animate({ scrollTop: offset.top }, 500);
                             // 더 부드럽게 하고 싶다
                         });
                     });
@@ -679,7 +682,8 @@
                 </div>
 
                 <div>
-                    <button style="margin-top: 30px;" onclick="reset()" type="button" class="btn btn-primary btn-lg">다른 지역 검색해보기</button>
+                    <button style="margin-top: 30px;" onclick="reset()" type="button" class="btn btn-primary btn-lg">
+                        다른 지역 검색해보기</button>
                 </div>
 
                 <script>
