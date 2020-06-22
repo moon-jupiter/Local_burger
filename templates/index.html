@@ -606,15 +606,15 @@
                 <h3 class="section-subheading text-muted">주소를 입력하세요. </h3>
             </div>
 
-
             <!-- 주소 검색 팝업이 왜 안 뜰까? -->
-            <div style=" margin-bottom: 20px; display:table; margin-left: auto; margin-right: auto;">
+            <div style=" margin-bottom: 20px; display: table; margin-left: auto; margin-right: auto;">
                 <input style="height: 35px; width: 425px;" type="text" name="" id="input_address"
                     class="postcodify_address" value="" />
                 <button style="height: 35px;" id="postcodify_search_button">주소 검색</button>
             </div>
 
             <!-- jQuery와 Postcodify를 로딩한다 -->
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
             <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js">
                 $(function () { $("#postcodify_search_button").postcodifyPopUp(); }); 
             </script>
