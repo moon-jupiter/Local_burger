@@ -42,6 +42,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript">
         var dataset = {};
 
@@ -139,8 +140,7 @@
                         let result_address = response['address'];
 
                         rewrite_number(burgerking_local, rank_local);
-                        console.log(burgerking_local)
-                        console.log(number_burgerking);
+
 
                         dataset[number_burgerking] = [people_local, burgerking_local, 'point { size: 18; shape-type: star; fill-color: #a52714;}', result_address];
 
@@ -610,13 +610,12 @@
             <div style=" margin-bottom: 20px; display: table; margin-left: auto; margin-right: auto;">
                 <input style="height: 35px; width: 425px;" type="text" name="" id="input_address"
                     class="postcodify_address" value="" />
-                <button style="height: 35px;" id="postcodify_search_button">주소 검색</button>
+                <button class="btn btn-dark" style="height: 35px;" id="postcodify_search_button">주소 검색</button>
             </div>
-
-            <!-- jQuery와 Postcodify를 로딩한다 -->
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-            <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js">
-                $(function () { $("#postcodify_search_button").postcodifyPopUp(); }); 
+            <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> -->
+            <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+            <script type="text/javascript">
+                $("#postcodify_search_button").postcodifyPopUp();
             </script>
 
             <div style="width: 500px; margin-left: auto; margin-right: auto;" class="input-group">
@@ -624,10 +623,10 @@
                     <option selected value="버거킹">버거킹</option>
                 </select>
                 <div class="input-group-append">
-                    <button onclick="result()" class="btn btn-outline-secondary" type="button"
+                    <button onclick="result()" class="btn btn-warning" type="button"
                         id="result_btn">검색</button>
                 </div>
-                
+
                 <script>
                     $(document).ready(function () {
                         $('#result_btn').click(function () {
@@ -928,7 +927,7 @@
     <footer class="footer py-4">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-left">Copyright © Sparta Coding Club 8th</div>
+                <div class="col-lg-4 text-lg-left">Copyleft © Sparta Coding Club 8th</div>
                 <div class="col-lg-4 my-3 my-lg-0">
                     <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
