@@ -116,7 +116,13 @@
                 //alert('지도 그리기 완료!');
                 search_address(address_client);
                 visualizing_map();
-            }
+
+                var offset = $('#result_index').offset();
+                $('html').animate({ scrollTop: offset.top }, 1000);
+                // 더 부드럽게 하고 싶다
+            };
+
+        
         }
 
         function reset() {
@@ -623,19 +629,8 @@
                     <option selected value="버거킹">버거킹</option>
                 </select>
                 <div class="input-group-append">
-                    <button onclick="result()" class="btn btn-warning" type="button"
-                        id="result_btn">검색</button>
+                    <button onclick="result()" class="btn btn-warning" type="button" id="result_btn">검색</button>
                 </div>
-
-                <script>
-                    $(document).ready(function () {
-                        $('#result_btn').click(function () {
-                            var offset = $('#result_index').offset();
-                            $('html').animate({ scrollTop: offset.top }, 1000);
-                            // 더 부드럽게 하고 싶다
-                        });
-                    });
-                </script>
             </div>
         </div>
     </section>
