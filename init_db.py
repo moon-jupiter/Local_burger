@@ -9,7 +9,7 @@ import os
 
 
 def import_content(filepath):
-    mng_client = pymongo.MongoClient('localhost', 27017)
+    client = MongoClient('mongodb://test:test@localhost',27017) db = client.dbsparta
     mng_db = mng_client['dbsparta'] #Replace mongo db name
     collection_name = 'localburger' #Replace mongo db collection name
     db_cm = mng_db[collection_name]
