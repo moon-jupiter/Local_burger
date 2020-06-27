@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>버거킹 검색</title>
+
+    <meta property="og:title" content="Local Burgerking" />
+    <meta property="og:description" content="주소를 검색해서 버거킹 개수와 지도를 확인해보세요!" />
+    <meta property="og:image" content="{{ url_for('static', filename='ogimage.png') }}" />
+
+    <title>Local Burgerking🍔👑</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
@@ -121,8 +126,6 @@
                 $('html').animate({ scrollTop: offset.top }, 1000);
                 // 더 부드럽게 하고 싶다
             };
-
-        
         }
 
         function reset() {
